@@ -1,6 +1,6 @@
 <?php
 
-namespace Sprocketbox\Eloquent\Identity;
+namespace OllieCodes\Eloquent\Identity;
 
 class ModelIdentity
 {

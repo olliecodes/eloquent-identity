@@ -1,14 +1,14 @@
 # Eloquent Identity
-[![Latest Stable Version](https://poser.pugx.org/sprocketbox/eloquent-identity/v/stable.png)](https://packagist.org/packages/sprocketbox/eloquent-identity) 
-[![Latest Unstable Version](https://poser.pugx.org/sprocketbox/eloquent-identity/v/unstable.png)](https://packagist.org/packages/sprocketbox/eloquent-identity) 
-[![License](https://poser.pugx.org/sprocketbox/eloquent-identity/license.png)](https://packagist.org/packages/sprocketbox/eloquent-identity)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sprocketbox/eloquent-identity/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sprocketbox/eloquent-identity/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/olliecodes/eloquent-identity/v/stable.png)](https://packagist.org/packages/olliecodes/eloquent-identity) 
+[![Latest Unstable Version](https://poser.pugx.org/olliecodes/eloquent-identity/v/unstable.png)](https://packagist.org/packages/olliecodes/eloquent-identity) 
+[![License](https://poser.pugx.org/olliecodes/eloquent-identity/license.png)](https://packagist.org/packages/olliecodes/eloquent-identity)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/olliecodes/eloquent-identity/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/olliecodes/eloquent-identity/?branch=master)
 
-- **Laravel**: 7+
-- **PHP**: 7.4+
+- **Laravel**: 7.* || 8.*
+- **PHP**: 7.* || 8.*
 - **License**: MIT
 - **Author**: Ollie Read 
-- **Author Homepage**: https://sprocketbox.io
+- **Author Homepage**: https://ollie.codes
 
 Eloquent identity provides a cache on top of Eloquent preventing multiple models being created for a single database row 
 using the Identity Map design pattern ([P of EAA](https://martinfowler.com/eaaCatalog/identityMap.html) & [Wikipedia](https://en.wikipedia.org/wiki/Identity_map_pattern)).
@@ -28,14 +28,14 @@ using the Identity Map design pattern ([P of EAA](https://martinfowler.com/eaaCa
 To install this package simply run the following command.
 
 ```
-composer require sprocketbox/eloquent-identity
+composer require olliecodes/eloquent-identity
 ```
 
 This package uses auto-discovery to register the service provider but if you'd rather do it manually, 
 the service provider is:
 
 ```
-Sprocketbox\Eloquent\Identity\ServiceProvider
+OllieCodes\Eloquent\Identity\ServiceProvider
 ```
 
 There is no configuration required.
@@ -44,7 +44,7 @@ There is no configuration required.
 To make use of the Eloquent identity map on your models, add the following trait.
 
 ```
-Sprocketbox\Eloquent\Identity\Concerns\MapsIdentity
+OllieCodes\Eloquent\Identity\Concerns\MapsIdentity
 ```
 
 ### Finding
@@ -79,7 +79,7 @@ The `IdentityManager` stores an array containing all existing model instances an
 The identities for models are stored as string, created using the following class.
 
 ```
-Sprocketbox\Eloquent\Identity\ModelIdentity
+OllieCodes\Eloquent\Identity\ModelIdentity
 ```
 
 This contains a key, the model class name, and the connection name. The string version of these looks like so:

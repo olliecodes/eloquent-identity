@@ -1,6 +1,6 @@
 <?php /** @noinspection PhpUndefinedMethodInspection */
 
-namespace Sprocketbox\Eloquent\Identity\Concerns;
+namespace OllieCodes\Eloquent\Identity\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Date;
 use Laravel\Nova\Fields\BelongsToMany;
 use LogicException;
-use Sprocketbox\Eloquent\Identity\Facades\Identity;
-use Sprocketbox\Eloquent\Identity\ModelIdentity;
-use Sprocketbox\Eloquent\Identity\Query\Builder;
+use OllieCodes\Eloquent\Identity\Facades\Identity;
+use OllieCodes\Eloquent\Identity\ModelIdentity;
+use OllieCodes\Eloquent\Identity\Query\Builder;
 
 /**
  * MapsIdentity
  *
  * This trait provides identity map functionality for Eloquent models.
  *
- * @package Sprocketbox\Eloquent\Identity\Concerns
+ * @package OllieCodes\Eloquent\Identity\Concerns
  */
 trait MapsIdentity
 {
@@ -76,7 +76,7 @@ trait MapsIdentity
      * @param null        $id
      * @param string|null $connection
      *
-     * @return \Sprocketbox\Eloquent\Identity\ModelIdentity
+     * @return \OllieCodes\Eloquent\Identity\ModelIdentity
      */
     public function getModelIdentity($id = null, ?string $connection = null): ModelIdentity
     {
@@ -90,7 +90,7 @@ trait MapsIdentity
      *
      * @param \Illuminate\Database\Query\Builder $query
      *
-     * @return \Illuminate\Database\Eloquent\Builder|\Sprocketbox\Eloquent\Identity\Query\Builder|static
+     * @return \Illuminate\Database\Eloquent\Builder|\OllieCodes\Eloquent\Identity\Query\Builder|static
      */
     public function newEloquentBuilder($query)
     {

@@ -1,5 +1,5 @@
 {
-  "name": "sprocketbox/eloquent-identity",
+  "name": "olliecodes/eloquent-identity",
   "description": "An identity map implementation for Eloquent",
   "keywords": [
     "laravel",
@@ -12,12 +12,12 @@
   "authors": [
     {
       "name": "Ollie Read",
-      "email": "ollie@sprocketbox.io"
+      "email": "packages@ollie.codes"
     }
   ],
   "autoload": {
     "psr-4": {
-      "Sprocketbox\\Eloquent\\Identity\\": "src/"
+      "OllieCodes\\Eloquent\\Identity\\": "src/"
     }
   },
   "require": {
@@ -27,7 +27,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Sprocketbox\\Eloquent\\Identity\\ServiceProvider"
+        "OllieCodes\\Eloquent\\Identity\\ServiceProvider"
       ],
       "facades": [
         "Identity"

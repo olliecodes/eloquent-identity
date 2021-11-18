@@ -1,11 +1,11 @@
 <?php
 
-namespace Sprocketbox\Eloquent\Identity\Facades;
+namespace OllieCodes\Eloquent\Identity\Facades;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Facade;
-use Sprocketbox\Eloquent\Identity\IdentityManager;
-use Sprocketbox\Eloquent\Identity\ModelIdentity;
+use OllieCodes\Eloquent\Identity\IdentityManager;
+use OllieCodes\Eloquent\Identity\ModelIdentity;
 
 /**
  * Identity Facade
@@ -17,7 +17,7 @@ use Sprocketbox\Eloquent\Identity\ModelIdentity;
  * @method static IdentityManager removeIdentity(ModelIdentity $identity)
  * @method static array allIdentities()
  *
- * @package Sprocketbox\Eloquent\Identity\Facades
+ * @package OllieCodes\Eloquent\Identity\Facades
  */
 class Identity extends Facade
 {

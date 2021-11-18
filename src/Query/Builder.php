@@ -1,6 +1,6 @@
 <?php
 
-namespace Sprocketbox\Eloquent\Identity\Query;
+namespace OllieCodes\Eloquent\Identity\Query;
 
 use Closure;
 use Illuminate\Contracts\Support\Arrayable;
@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
-use Sprocketbox\Eloquent\Identity\Concerns\MapsIdentity;
-use Sprocketbox\Eloquent\Identity\Facades\Identity;
-use Sprocketbox\Eloquent\Identity\ModelIdentity;
+use OllieCodes\Eloquent\Identity\Concerns\MapsIdentity;
+use OllieCodes\Eloquent\Identity\Facades\Identity;
+use OllieCodes\Eloquent\Identity\ModelIdentity;
 
 class Builder extends EloquentBuilder
 {

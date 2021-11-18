@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2020-07-07
 - Initial release
 
-[Unreleased]: https://github.com/sprocketbox/eloquent-identity/compare/v1.2.0...master
-[1.2.0]: https://github.com/sprocketbox/eloquent-identity/releases/tag/v1.2.0
-[1.1.0]: https://github.com/sprocketbox/eloquent-identity/releases/tag/v1.1.0
-[1.0.0]: https://github.com/sprocketbox/eloquent-identity/releases/tag/v1.0.0
+[Unreleased]: https://github.com/olliecodes/eloquent-identity/compare/v1.2.0...master
+[1.2.0]: https://github.com/olliecodes/eloquent-identity/releases/tag/v1.2.0
+[1.1.0]: https://github.com/olliecodes/eloquent-identity/releases/tag/v1.1.0
+[1.0.0]: https://github.com/olliecodes/eloquent-identity/releases/tag/v1.0.0
