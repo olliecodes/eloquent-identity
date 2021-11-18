@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2021-11-18
+### Fixed
+- Fixed issue where the wrong `BelongsToMany` was imported
+
 ## [1.2.0] - 2021-01-05
 ### Changed
 - Added support for PHP 8
@@ -20,7 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2020-07-07
 - Initial release
 
-[Unreleased]: https://github.com/olliecodes/eloquent-identity/compare/v1.2.0...master
+[Unreleased]: https://github.com/olliecodes/eloquent-identity/compare/v1.2.1...main
+[1.2.0]: https://github.com/olliecodes/eloquent-identity/releases/tag/v1.2.1
 [1.2.0]: https://github.com/olliecodes/eloquent-identity/releases/tag/v1.2.0
 [1.1.0]: https://github.com/olliecodes/eloquent-identity/releases/tag/v1.1.0
 [1.0.0]: https://github.com/olliecodes/eloquent-identity/releases/tag/v1.0.0
