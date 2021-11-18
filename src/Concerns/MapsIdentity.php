@@ -1,12 +1,13 @@
-<?php /** @noinspection PhpUndefinedMethodInspection */
+<?php
+/** @noinspection PhpUndefinedMethodInspection */
 
 namespace OllieCodes\Eloquent\Identity\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Date;
-use Laravel\Nova\Fields\BelongsToMany;
 use LogicException;
 use OllieCodes\Eloquent\Identity\Facades\Identity;
 use OllieCodes\Eloquent\Identity\ModelIdentity;
@@ -16,6 +17,8 @@ use OllieCodes\Eloquent\Identity\Query\Builder;
  * MapsIdentity
  *
  * This trait provides identity map functionality for Eloquent models.
+ *
+ * @mixin \Illuminate\Database\Eloquent\Model
  *
  * @package OllieCodes\Eloquent\Identity\Concerns
  */
@@ -30,88 +33,6 @@ trait MapsIdentity
         static::deleted(fn(Model $model) => Identity::removeIdentity($model->getModelIdentity()));
         // Add a created event so newly created models are stored
         static::created(fn(Model $model) => Identity::storeIdentity($model->getModelIdentity(), $model));
-    }
-
-    /**
-     * Override the default newFromBuilder method to use the identity map.
-     *
-     * @see          \Illuminate\Database\Eloquent\Model::newFromBuilder()
-     *
-     * @param array $attributes
-     * @param null  $connection
-     *
-     * @return \Illuminate\Database\Eloquent\Model
-     * @noinspection PhpIncompatibleReturnTypeInspection
-     */
-    public function newFromBuilder($attributes = [], $connection = null): Model
-    {
-        $attributes = (array) $attributes;
-        $key        = $attributes[$this->getKeyName()] ?? null;
-        $identity   = $model = null;
-
-        if ($key !== null) {
-            $identity = $this->getModelIdentity($key, $connection);
-
-            if (Identity::hasIdentity($identity)) {
-                $model = Identity::getIdentity($identity);
-                /** @noinspection NullPointerExceptionInspection */
-                $this->updateModelAttributes($model, $attributes);
-
-                return $model;
-            }
-        }
-
-        $model = parent::newFromBuilder($attributes, $connection);
-
-        if ($identity !== null) {
-            Identity::storeIdentity($model->getModelIdentity(), $model);
-        }
-
-        return $model;
-    }
-
-    /**
-     * Get the model identity.
-     *
-     * @param null        $id
-     * @param string|null $connection
-     *
-     * @return \OllieCodes\Eloquent\Identity\ModelIdentity
-     */
-    public function getModelIdentity($id = null, ?string $connection = null): ModelIdentity
-    {
-        $connection = $connection ?? $this->getConnectionName() ?? static::getConnectionResolver()->getDefaultConnection();
-
-        return new ModelIdentity(static::class, $id ?? $this->getKey(), $connection);
-    }
-
-    /**
-     * Create a new Eloquent query builder for the model.
-     *
-     * @param \Illuminate\Database\Query\Builder $query
-     *
-     * @return \Illuminate\Database\Eloquent\Builder|\OllieCodes\Eloquent\Identity\Query\Builder|static
-     */
-    public function newEloquentBuilder($query)
-    {
-        return new Builder($query);
-    }
-
-    /**
-     * Change the original attributes to match the new attributes, and re-add the dirty records.
-     *
-     * @param \Illuminate\Database\Eloquent\Model $model
-     * @param array                               $attributes
-     */
-    protected function updateModelAttributes(Model $model, array $attributes = []): void
-    {
-        if (! $this->areAttributesMoreRecent($model, $attributes)) {
-            return;
-        }
-
-        $dirtyAttributes = $model->getDirty();
-        $model->setRawAttributes($attributes, true);
-        $model->setRawAttributes(array_merge($model->getAttributes(), $dirtyAttributes), false);
     }
 
     /**
@@ -143,6 +64,22 @@ trait MapsIdentity
         }
 
         return true;
+    }
+
+    /**
+     * Get the model identity.
+     *
+     * @param null        $id
+     * @param string|null $connection
+     *
+     * @return \OllieCodes\Eloquent\Identity\ModelIdentity
+     */
+    public function getModelIdentity($id = null, ?string $connection = null): ModelIdentity
+    {
+        $connection =
+            $connection ?? $this->getConnectionName() ?? static::getConnectionResolver()->getDefaultConnection();
+
+        return new ModelIdentity(static::class, $id ?? $this->getKey(), $connection);
     }
 
     /**
@@ -194,5 +131,71 @@ trait MapsIdentity
         }
 
         return $relation->getResults();
+    }
+
+    /**
+     * Create a new Eloquent query builder for the model.
+     *
+     * @param \Illuminate\Database\Query\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder|\OllieCodes\Eloquent\Identity\Query\Builder|static
+     */
+    public function newEloquentBuilder($query): Builder
+    {
+        return new Builder($query);
+    }
+
+    /**
+     * Override the default newFromBuilder method to use the identity map.
+     *
+     * @param array $attributes
+     * @param null  $connection
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     * @see          \Illuminate\Database\Eloquent\Model::newFromBuilder()
+     *
+     */
+    public function newFromBuilder($attributes = [], $connection = null): Model
+    {
+        $attributes = (array)$attributes;
+        $key        = $attributes[$this->getKeyName()] ?? null;
+        $identity   = $model = null;
+
+        if ($key !== null) {
+            $identity = $this->getModelIdentity($key, $connection);
+
+            if (Identity::hasIdentity($identity)) {
+                $model = Identity::getIdentity($identity);
+                /** @noinspection NullPointerExceptionInspection */
+                $this->updateModelAttributes($model, $attributes);
+
+                return $model;
+            }
+        }
+
+        $model = parent::newFromBuilder($attributes, $connection);
+
+        if ($identity !== null) {
+            Identity::storeIdentity($model->getModelIdentity(), $model);
+        }
+
+        return $model;
+    }
+
+    /**
+     * Change the original attributes to match the new attributes, and re-add the dirty records.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     * @param array                               $attributes
+     */
+    protected function updateModelAttributes(Model $model, array $attributes = []): void
+    {
+        if (! $this->areAttributesMoreRecent($model, $attributes)) {
+            return;
+        }
+
+        $dirtyAttributes = $model->getDirty();
+        $model->setRawAttributes($attributes, true);
+        $model->setRawAttributes(array_merge($model->getAttributes(), $dirtyAttributes), false);
     }
 }
